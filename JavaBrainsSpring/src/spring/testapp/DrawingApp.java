@@ -20,6 +20,9 @@ public class DrawingApp {
 	@SuppressWarnings({ "resource", "deprecation" })
 	public static void main(String[] args) {
 		
+		/*  Simple object creation
+		 */
+		
 		Triangle triangle 						= new Triangle();
 		triangle.draw();
 		
