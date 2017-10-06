@@ -136,6 +136,7 @@ public class DrawingApp {
 		 * 	PropertyPlaceholderConfigurer runs before BeanFactoryPostProcessor.
 		 *  BeanFactoryPostProcessor will do the value substitution for us.
 		 */
+		
 		Rectangle rectanglePlaceholder			= (Rectangle) context.getBean("rectanglePlaceholder");
 		rectanglePlaceholder.draw();
 	}
