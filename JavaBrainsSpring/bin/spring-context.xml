@@ -1,0 +1,355 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans 	xmlns 					= "http://www.springframework.org/schema/beans"
+   		xmlns:xsi 				= "http://www.w3.org/2001/XMLSchema-instance"
+   		xsi:schemaLocation 		= "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"
+   		 
+   		default-init-method		= "StudentInit" 
+   		default-destroy-method	= "StudentDestroy">
+   			
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<bean id="triangleSetterInjection" class="spring.beans.Triangle" scope="prototype">
+ 		<property name="type" value="Equilateral"/> 								<!-- Spring using setter of "type" - Setter Injection -->
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<bean id="triangleConstructorInjection" class="spring.beans.Triangle">
+ 		<constructor-arg value="Equilateral"/>										<!-- Spring doesn't use setter of "type" - Constructor Injection -->
+ 		<constructor-arg value="20"/>												<!-- Spring automatically convert String "20" into int 20 -->
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<bean id="triangleConstructorInjectionNoArgType" class="spring.beans.Triangle">
+ 		<constructor-arg value="20"/>												<!-- Spring matches the String arg constructor -->
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	<bean id="triangleConstructorInjectionStrArgType" class="spring.beans.Triangle">
+ 		<constructor-arg type="java.lang.String" value="Equilateral"/>
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<bean id="triangleConstructorInjectionIntArgType" class="spring.beans.Triangle">
+ 		<constructor-arg type="int" value="20"/>
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<bean id="triangleConstructorInjectionArgIndex" class="spring.beans.Triangle">
+ 		<constructor-arg index="0" type="java.lang.String" value="Equilateral"/>	
+ 		<constructor-arg index="1" type="int" value="20"/>
+   		
+   		<!-- If 2 or more indexes are same - 
+   				"Ambiguous constructor-arg entries for index n"
+   		-->
+   		
+   		<!-- If indexes are mentioned in wrong order - 
+   				"org.springframework.beans.factory.UnsatisfiedDependencyException: 
+   				Error creating bean with name 'triangleConstructorInjectionArgIndex' defined in class path resource [spring-context.xml]: 
+   				Unsatisfied dependency expressed through constructor parameter 0: 
+   				Ambiguous argument values for parameter of type [java.lang.String] - 
+   				did you specify the correct bean references as arguments?"
+   		-->
+   		
+   		<!-- If index is lower than 0 - 
+   				org.springframework.beans.factory.parsing.BeanDefinitionParsingException: 
+   				Configuration problem: 'index' cannot be lower than 0 
+   		-->
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<bean id="upperLeft" class="spring.beans.Coordinates">
+   		<property name="x" value="0" />
+   		<property name="y" value="0" />
+   	</bean>
+   	
+   	<bean id="upperRight" class="spring.beans.Coordinates">
+   		<property name="x" value="20" />
+   		<property name="y" value="0" />
+   	</bean>
+   	
+   	<bean id="lowerLeft" class="spring.beans.Coordinates">
+   		<property name="x" value="20" />
+   		<property name="y" value="-20" />
+   	</bean>
+   	
+   	<bean id="lowerRight" class="spring.beans.Coordinates">
+   		<property name="x" value="0" />
+   		<property name="y" value="-20" />
+   	</bean>
+
+
+<!-- *********************************************************************************************************************************************************** -->   	
+   	
+   	<bean id="rectangleObjRef" class="spring.beans.Rectangle">
+   		<property name="point_A" ref="upperLeft" />									<!-- Object Reference - assigns pointA reference to point_A property -->
+   		<property name="point_B" ref="upperRight" />								<!-- Object Reference - assigns pointB reference to point_B property -->
+   		<property name="point_C" ref="lowerLeft" />									<!-- Object Reference - assigns pointC reference to point_C property -->
+   		<property name="point_D" ref="lowerRight" />								<!-- Object Reference - assigns pointD reference to point_D property -->
+   	</bean>
+
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<bean id="rectangleInnerBeans" class="spring.beans.Rectangle" name="rectangleInnerBeans-name">
+   		<!-- Consolidate all required values in single bean definition, other than that there is no significant performance / advantage -->
+   		 
+   		<property name="point_A" ref="upperLeft" />
+   		
+   		<property name="point_B">
+   			<bean class="spring.beans.Coordinates">										<!-- There is no point of giving an id here, because you cannot refer it anywhere else  -->
+   				<property name="x" value="20" />
+   				<property name="y" value="0" />
+   			</bean>
+   		</property>
+   		
+   		<property name="point_C">
+   			<bean class="spring.beans.Coordinates">
+		   		<property name="x" value="20" />
+		   		<property name="y" value="-20" />
+		   	</bean>
+   		</property>
+   		
+   		<property name="point_D">
+   			<bean class="spring.beans.Coordinates">
+		   		<property name="x" value="0" />
+		   		<property name="y" value="-20" />
+		   	</bean>
+   		</property>
+   	</bean>
+
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<alias name="rectangleInnerBeans" alias="rectangleInnerBeans-alias"/>			<!-- You can also define an alias by adding name attribute to <bean> tag -->
+   	
+   	<!-- It's a good practice to use id's for referencing, because it provide XML validations.
+   			i.e. there can be only one bean with one id in the XML file <beans> tag -->
+
+   	
+<!-- *********************************************************************************************************************************************************** -->   	
+	
+	<bean id="rectangleIdRef" class="spring.beans.Rectangle" name="rectangleIdRef-name">
+   		<property name="point_A" ref="upperLeft" />
+   		<property name="point_B" ref="upperRight" />
+   		<property name="point_C" ref="lowerLeft" />
+   		
+   		<property name="point_D" ref="lowerRight">
+   			<!-- <idref bean="lowerRight" /> -->
+   			<!-- Instead of "ref", use "idref" to refer the bean with provided name (works in Spring 3.x) -->
+   		</property>
+   	</bean>
+
+   	
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<bean id="rectangleCollection" class="spring.beans.Rectangle">
+   		<property name="points">
+   			<list>
+   				<ref bean="upperLeft"/>												<!-- Spring automatically converts to defined Collection Type i.e. <Coordinates> -->
+   				<ref bean="upperRight"/>
+   				<ref bean="lowerLeft"/>
+   				<ref bean="lowerRight"/>
+   			</list>
+   		</property>
+   	</bean>
+
+   	
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<bean id="rectangleAutowire" class="spring.beans.Rectangle" autowire="byName" />
+	<!-- In AutoWiring "byName" Spring will automatically find beans with the same id, as of properties defined in Class & automatically sets the references -->
+	<!-- In AutoWiring "byType" there should be individual properties of different types in the Class -->
+	   	
+   	<bean id="point_A" class="spring.beans.Coordinates">									<!-- Id is same as property defined in Class --> 
+   		<property name="x" value="0" />
+   		<property name="y" value="0" />
+   	</bean>
+   	
+   	<bean id="point_B" class="spring.beans.Coordinates">
+   		<property name="x" value="20" />
+   		<property name="y" value="0" />
+   	</bean>
+   	
+   	<bean id="point_C" class="spring.beans.Coordinates">
+   		<property name="x" value="20" />
+   		<property name="y" value="-20" />
+   	</bean>
+   	
+   	<bean id="point_D" class="spring.beans.Coordinates">
+   		<property name="x" value="0" />
+   		<property name="y" value="-20" />
+   	</bean>
+
+	<!-- In real world applications, there are whole lot of beans & whole lot of dependencies, then it's very difficult to find out what's happening if it's all being 
+			AutoWired (i.e. we have to guess what is happening). If you have manually defined the dependencies & you want to debug, then it's easy to find out 
+			what the dependencies are by looking at the references.
+		 For huge amount of beans & references go for Explicit wiring.
+	 -->
+	 
+	     	
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<bean id="triangleScope" class="spring.beans.Triangle" scope="prototype"/>			<!-- By default scope="singleton" -->
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<bean id="rhombusAware" class="spring.beans.Rhombus"  autowire="byName" />
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<!-- Bean Definition Inheritance - If you have common configurations among different beans, create a parent bean or template & inherit it to other beans -->
+	
+	<bean id="rectangleParent" class="spring.beans.Rectangle">
+   		<property name="point_A" ref="upperLeft" />
+   		<property name="points">
+   			<list>
+   				<ref bean="point_A" />
+   			</list>
+   		</property>
+   	</bean>
+		
+	<bean id="rectangleChild1" class="spring.beans.Rectangle" parent="rectangleParent">
+   		<property name="point_B" ref="upperRight" />
+   		<property name="point_C" ref="lowerLeft" />
+   		<property name="point_D" ref="lowerRight" />
+   		
+   		<property name="points">
+   			<list merge="true">														<!-- To merge collection elements with parent collections -->
+   				<ref bean="point_B" />
+   				<ref bean="point_C" />
+   			</list>
+   		</property>
+   	</bean>
+   	
+   	
+   	<bean id="rectangleChild2" class="spring.beans.Rectangle" parent="rectangleParent">
+   		<property name="point_B" ref="upperRight" />
+   		<property name="point_C" ref="lowerLeft" />
+   		
+   		<property name="points">
+   			<list merge="false">														<!-- To merge collection elements with parent collections -->
+   				<ref bean="point_D" />
+   			</list>
+   		</property>
+   	</bean>
+	 
+	<!-- If you want to use a bean as a Template, define it as abstract. No objects will be created for abstract type beans -->
+	
+	<bean id="rectangleTemplate" class="spring.beans.Rectangle" abstract="true">
+   		<property name="point_A" ref="upperLeft" />
+   		<property name="points">
+   			<list>
+   				<ref bean="point_A" />
+   			</list>
+   		</property>
+   	</bean> 
+   	
+   	<bean id="rectangleChild3" class="spring.beans.Rectangle" parent="rectangleTemplate">
+   		<property name="point_B" ref="upperRight" />
+   		<property name="point_C" ref="lowerLeft" />
+   		<property name="point_D" ref="lowerRight" />
+   		
+   		<property name="points">
+   			<list merge="true">														<!-- Collection elements will not be merged with parent collections -->
+   				<ref bean="point_B" />
+   				<ref bean="point_C" />
+   				<ref bean="point_D" />
+   			</list>
+   		</property>
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->   	
+   	
+   	<!-- init-method="" specifies the method name, which will be called after the bean has been initialized.
+   		 destroy-method="" specifies the method name, which will be called before the bean will be destroyed. 
+   		 To define these (s) globally (i.e. for all beans) define it in <beans> tag using 
+   		 default-init-method="" & default-destroy-method="" attributes. -->
+   	
+   	<bean id="student" class="spring.beans.Student" init-method="StudentInit" destroy-method="StudentDestroy">
+ 		<property name="rollNum" value="548"/>
+ 		<property name="name" value="Vipul Sharma"/>
+ 		<property name="address" value="New Delhi, India"/>
+ 		
+ 		<property name="marks">
+ 			<map>
+ 				<entry key="Maths" value="95"/>
+ 				<entry key="Science" value="98"/>
+ 				<entry key="Computers" value="99"/>
+ 			</map>
+ 		</property>
+   	</bean>
+
+
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	<!-- We can have any number of BeanPostProcessor Implemented classes, & we can define the order of their initializations 
+   		 BeanPostProcessor tells Spring that there is some processing spring needs to do after initializing the bean.
+   		 Spring executes that code after initializing each & every bean. -->
+   	
+   	<bean class="spring.implementations.BeanPostProcessorImpl"/>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+  	
+  	<!-- BeanFactoryPostProcessor have postProcessBeanFactory() which run before bean factory is initialized 
+  		 ApplicationContext is actually a BeanFactory -->
+  	
+  	<bean class="spring.implementations.BeanFactoryPostProcessorImpl"/>
+
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<bean id="point_A_placeholder" class="spring.beans.Coordinates">									<!-- Id is same as property defined in Class --> 
+   		<property name="x" value="${point_A.x}" />
+   		<property name="y" value="${point_A.y}" />
+   	</bean>
+   	
+   	<bean id="point_B_placeholder" class="spring.beans.Coordinates">
+   		<property name="x" value="${point_B.x}" />
+   		<property name="y" value="${point_B.y}" />
+   	</bean>
+   	
+   	<bean id="point_C_placeholder" class="spring.beans.Coordinates">
+   		<property name="x" value="${point_C.x}" />
+   		<property name="y" value="${point_C.y}" />
+   	</bean>
+   	
+   	<bean id="point_D_placeholder" class="spring.beans.Coordinates">
+   		<property name="x" value="${point_D.x}" />
+   		<property name="y" value="${point_D.y}" />
+   	</bean>
+   	
+   	<bean id="rectanglePlaceholder" class="spring.beans.Rectangle">
+   		<property name="point_A" ref="point_A_placeholder" />
+   		<property name="point_B" ref="point_B_placeholder" />
+   		<property name="point_C" ref="point_C_placeholder" />
+   		<property name="point_D" ref="point_D_placeholder">
+   		</property>
+   	</bean>
+   	
+   	<!-- It executes before BeanFatory & substitutes the placeholder values from specified file.
+   		 PropertyPlaceholderConfigurer runs before BeanFactoryPostProcessor.
+   		 BeanFactoryPostProcessor will do the value substitution for us. 
+   		 To set a relative path for properties file use value="classpath:Placeholder.values" -->
+   		 
+   	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   		<property name="locations" value="Placeholder.values"></property>
+   	</bean>
+   	
+   	
+<!-- *********************************************************************************************************************************************************** -->
+</beans>
