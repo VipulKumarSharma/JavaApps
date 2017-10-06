@@ -1,0 +1,13 @@
+# This file contains placeholder values
+
+point_A.x=0
+point_A.y=0
+
+point_B.x=20
+point_B.y=10
+
+point_C.x=20
+point_C.y=-20
+
+point_D.x=0
+point_D.y=-20
