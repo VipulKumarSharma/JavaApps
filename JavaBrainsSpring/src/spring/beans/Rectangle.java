@@ -4,7 +4,9 @@ import java.util.List;
 
 public class Rectangle {
 	
-	public Rectangle() {}
+	public Rectangle() {
+		System.out.println("\nRectangle class non-parameterized constructor.");
+	}
 	
 	private Coordinates point_A;
 	private Coordinates point_B;
