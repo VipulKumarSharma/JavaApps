@@ -1,4 +1,4 @@
-# This file contains placeholder values
+# This file contains placeholder values which will be used by Spring to substitute values.
 
 point_A.x=0
 point_A.y=0
