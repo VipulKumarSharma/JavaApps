@@ -140,6 +140,5 @@ public class DrawingApp {
 		Rectangle rectanglePlaceholder			= (Rectangle) context.getBean("rectanglePlaceholder");
 		rectanglePlaceholder.draw();
 		
-		
 	}
 }
