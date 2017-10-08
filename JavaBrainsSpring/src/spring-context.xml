@@ -193,8 +193,9 @@
    	</bean>
 
 	<!-- In real world applications, there are whole lot of beans & whole lot of dependencies, then it's very difficult to find out what's happening if it's all being 
-			AutoWired (i.e. we have to guess what is happening). If you have manually defined the dependencies & you want to debug, then it's easy to find out 
-			what the dependencies are by looking at the references.
+		 AutoWired (i.e. we have to guess what is happening). If you have manually defined the dependencies & you want to debug, then it's easy to find out 
+		 what the dependencies are by looking at the references.
+		 
 		 For huge amount of beans & references go for Explicit wiring.
 	 -->
 	 
@@ -277,6 +278,7 @@
    	
    	<!-- init-method="" specifies the method name, which will be called after the bean has been initialized.
    		 destroy-method="" specifies the method name, which will be called before the bean will be destroyed. 
+   		
    		 To define these (s) globally (i.e. for all beans) define it in <beans> tag using 
    		 default-init-method="" & default-destroy-method="" attributes. -->
    	
@@ -343,6 +345,7 @@
    	
    	<!-- It executes before BeanFatory & substitutes the placeholder values from specified file.
    		 PropertyPlaceholderConfigurer runs before BeanFactoryPostProcessor.
+   		 
    		 BeanFactoryPostProcessor will do the value substitution for us. 
    		 To set a relative path for properties file use value="classpath:Placeholder.values" -->
    		 
@@ -362,9 +365,24 @@
 
 <!-- *********************************************************************************************************************************************************** -->
    	
+   	<!-- In the above circle wiring, if we don't specify center property, then we'll get NullPointerException in draw(); 
+   		 There are no validations for center object in class.
+   		 Add @Required to the property setter in the Class.
+   		 
+   		 RequiredAnnotationBeanPostProcessor does the validation in the background.
+   		 When all the beans are being instantiated, RABPP checks for the annotations.
+   		 
+   		 RABPP has a method which gets called on initialization of each bean. 
+   		 That method will check Annotations in all the classes.
+   		 
+   		 If the validations fails, then RABPP throws Runtime Exception while the beans are initialized
+   		 	- org.springframework.beans.factory.BeanInitializationException : Property 'center' is required for bean 'annotationCircle' --> 
    	
+   	<bean id="annotationCircle" class="spring.beans.annotations.Circle">
    	
+   	</bean>
    	
+   	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
    	
    	
    	
