@@ -365,31 +365,6 @@
 
 <!-- *********************************************************************************************************************************************************** -->
    	
-   	<!-- In the above circle wiring, if we don't specify center property, then we'll get NullPointerException in draw(); 
-   		 There are no validations for center object in class.
-   		 Add @Required to the property setter in the Class.
-   		 
-   		 RequiredAnnotationBeanPostProcessor does the validation in the background.
-   		 When all the beans are being instantiated, RABPP checks for the annotations.
-   		 
-   		 RABPP has a method which gets called on initialization of each bean. 
-   		 That method will check Annotations in all the classes.
-   		 
-   		 If the validations fails, then RABPP throws Runtime Exception while the beans are initialized
-   		 	- org.springframework.beans.factory.BeanInitializationException : Property 'center' is required for bean 'annotationCircle' --> 
    	
-   	<bean id="annotationCircle" class="spring.beans.annotations.Circle">
-   	
-   	</bean>
-   	
-   	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
-   	
-   	
-   	
-   	
-   	
-   	
-   	
-
 </beans>
 

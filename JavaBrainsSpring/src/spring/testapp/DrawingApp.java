@@ -160,10 +160,11 @@ public class DrawingApp {
 		shape.draw();
 		
 		
+
 		/*  RequiredAnnotationBeanPostProcessor check all dependencies are met or not, in beans at initialization according to Annotations in Classes.
-		 */
-		Shape annotationCircle					= (Shape) context.getBean("annotationCircle");
-		annotationCircle.draw();
+		 */		
+		ApplicationContext annotationContext 	= new ClassPathXmlApplicationContext("spring-annotations.xml");
+		Shape annotationCircle					= (Shape) annotationContext.getBean("annotationCircle");
 		
 		
 		
