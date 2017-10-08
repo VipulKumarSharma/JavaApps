@@ -140,5 +140,43 @@ public class DrawingApp {
 		Rectangle rectanglePlaceholder			= (Rectangle) context.getBean("rectanglePlaceholder");
 		rectanglePlaceholder.draw();
 		
+		
+		/*  Coding to Interfaces
+		 *  DrawingApp doesn't now what it is drawing.
+		 *  It is only getting a bean which Implements Shape Interface & calling Shape Interface method.
+		 *  Later on if you want to add Pentagon shape, then you only need to create Bean which implements Shape &  add entry to the xml.
+		 *  Or, create a shape definition in XML & change only the class (i.e. modify bean definition).
+		 *  Main advantage - remove the dependency of knowing the type of object.
+		 *  Business services, DAO Layer uses this concept.
+		 *  Doing DI always use interfaces, so that if you change the implementation, 
+		 *  you don't have to change the actual class which depends on the Interface.
+		 *  You just plug in the new implementation & change the wiring. So that the class can use new implementation.
+		 */
+		String shapeToDrawId					= "circle";
+		Shape shape								= (Shape) context.getBean(shapeToDrawId);
+		shape.draw();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }

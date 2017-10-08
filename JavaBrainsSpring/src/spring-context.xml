@@ -352,7 +352,26 @@
    	
 	
 <!-- *********************************************************************************************************************************************************** -->
+	
+	<bean id="circle" class="spring.beans.Circle">
+   		<property name="center" ref="lowerRight" />
+   	</bean>
+   	<!-- Coding to Interfaces - Circle class implements Shape Interface.
+   		 Instead of using Circle reference, use Shape Reference to draw shapes. -->
+   	
 
-
+<!-- *********************************************************************************************************************************************************** -->
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
 
 </beans>
+
