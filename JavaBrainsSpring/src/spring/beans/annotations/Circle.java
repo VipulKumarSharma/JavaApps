@@ -1,5 +1,7 @@
 package spring.beans.annotations;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 
 import spring.beans.Coordinates;
@@ -13,7 +15,8 @@ public class Circle implements Shape {
 		return center;
 	}
 	
-	@Required
+	@Required @Autowired 
+	@Qualifier("circleRelatedBean")
 	public void setCenter(Coordinates center) {
 		this.center = center;
 	}

@@ -1,11 +1,50 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 
-<beans 	xmlns 					= "http://www.springframework.org/schema/beans"
-   		xmlns:xsi 				= "http://www.w3.org/2001/XMLSchema-instance"
-   		xsi:schemaLocation 		= "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd" >
+<!-- XML nameSpaces -->
+<beans 	xmlns 					= "http://www.springframework.org/schema/beans" 
+   		xmlns:xsi 				= "http://www.w3.org/2001/XMLSchema-instance" 
+   		xsi:schemaLocation 		= "http://www.springframework.org/schema/beans 
+   								   http://www.springframework.org/schema/beans/spring-beans.xsd
+   								   http://www.springframework.org/schema/context 
+   								   http://www.springframework.org/schema/context/spring-context.xsd"
+   								    
+   		xmlns:context			= "http://www.springframework.org/schema/context">
    			
 <!-- *********************************************************************************************************************************************************** -->
    	
+   	<!-- In the above circle wiring, if we don't specify center property, then we'll get NullPointerException in draw(); 
+   		 There are no validations for center object in class.
+   		 Add @Required to the property setter in the Class.
+   		 
+   		 RequiredAnnotationBeanPostProcessor does the dependencies check in the background.
+   		 When all the beans are being instantiated, RABPP checks for the annotations.
+   		 
+   		 RABPP has a method which gets called on initialization of each bean. 
+   		 That method will check Annotations in all the classes.
+   		 
+   		 If the validations fails, then RABPP throws Runtime Exception while the beans are initialized
+   		 	- org.springframework.beans.factory.BeanInitializationException : Property 'center' is required for bean 'annotationCircle' --> 
+   	
+   	<bean id="requiredCircle" class="spring.beans.annotations.Circle">
+   	
+   	</bean>
+   	<!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/> -->
+   	
+   	
+<!-- *********************************************************************************************************************************************************** --> 	
+   	
+   	<!-- AutowiredAnnotationBeanPostProcessor checks and autoWire the beans by type.
+   		 If the one defined bean is of different id than the property of class, AABPP automatically injects it according to type.
+   		 
+   		 But if there are multiple beans of same type then AABPP gives Exception
+   		 	- Injection of autoWired dependencies failed.
+   		 
+   		 In case of multiple beans, if we define bean id, same as property name, it will automatically maps the matching bean. 
+   		 
+   		 If there are multiple beans & we cannot change the bean Id, then we have to use @Qualifier("circleRelatedBean") in property setter,
+   		 and we also have to define <qualifier> property in bean definition, so that Spring will know.
+   		 To use <qualifier> declare "xmlns:context" nameSpace in <beans> tag. -->
+   		 
    	<bean id="upperLeft" class="spring.beans.Coordinates">
    		<property name="x" value="0" />
    		<property name="y" value="0" />
@@ -25,35 +64,30 @@
    		<property name="x" value="0" />
    		<property name="y" value="-20" />
    	</bean>
-
-
-<!-- *********************************************************************************************************************************************************** -->
    	
-   	<!-- In the above circle wiring, if we don't specify center property, then we'll get NullPointerException in draw(); 
-   		 There are no validations for center object in class.
-   		 Add @Required to the property setter in the Class.
-   		 
-   		 RequiredAnnotationBeanPostProcessor does the dependencies check in the background.
-   		 When all the beans are being instantiated, RABPP checks for the annotations.
-   		 
-   		 RABPP has a method which gets called on initialization of each bean. 
-   		 That method will check Annotations in all the classes.
-   		 
-   		 If the validations fails, then RABPP throws Runtime Exception while the beans are initialized
-   		 	- org.springframework.beans.factory.BeanInitializationException : Property 'center' is required for bean 'annotationCircle' --> 
-   	
-   	<bean id="annotationCircle" class="spring.beans.annotations.Circle">
-   	
+   	<bean id="centerCorodinatesBean" class="spring.beans.Coordinates">
+   		<qualifier value="circleRelatedBean" />
+   		<property name="x" value="50" />
+   		<property name="y" value="70" />
    	</bean>
    	
-   	<!-- <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/> -->
-   	
-   	
-<!-- *********************************************************************************************************************************************************** --> 	
-   	
-   	
-   	
-   	
+   	<bean id="autowiredCircle" class="spring.beans.annotations.Circle"/>
+	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->   	
+	
+	
+	<!-- Instead of defining AnnotationBeanPostProcessors configurations one by one, there is a shortcut to initialize all BeanPostProcessors. --> 
+	
+	<context:annotation-config/>
+	  	
+<!-- *********************************************************************************************************************************************************** -->
+
+
+
+
+
+
+
+
 
 </beans>
 

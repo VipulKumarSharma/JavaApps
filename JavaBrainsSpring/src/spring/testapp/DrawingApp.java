@@ -160,14 +160,22 @@ public class DrawingApp {
 		shape.draw();
 		
 		
+		
+		ApplicationContext annotationContext 	= new ClassPathXmlApplicationContext("spring-annotations.xml");
 
 		/*  RequiredAnnotationBeanPostProcessor check all dependencies are met or not, in beans at initialization according to Annotations in Classes.
 		 */		
-		ApplicationContext annotationContext 	= new ClassPathXmlApplicationContext("spring-annotations.xml");
-		Shape annotationCircle					= (Shape) annotationContext.getBean("annotationCircle");
+		Shape requiredCircle					= (Shape) annotationContext.getBean("requiredCircle");
 		
 		
-		
+		/*  @Autowired autoWire the bean by Type (if there is only single bean)
+		 *  In case of multiple beans @Autowired first checks the type then name.
+		 *  If there are multiple beans & we cannot change the bean Id, then we have to use @Qualifier("") in property setter, and
+		 *  we also have to define <qualifier> property in bean definition, so that Spring will know.
+		 *  AutowiredAnnotationBeanPostProcessor checks dependencies and autoWire the beans.
+		 */
+		Shape autowiredCircle					= (Shape) annotationContext.getBean("autowiredCircle");
+		autowiredCircle.draw();
 		
 		
 		

@@ -1,8 +1,13 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 
-<beans 	xmlns 					= "http://www.springframework.org/schema/beans"
-   		xmlns:xsi 				= "http://www.w3.org/2001/XMLSchema-instance"
-   		xsi:schemaLocation 		= "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"
+<!-- XML nameSpaces -->
+<beans 	xmlns 					= "http://www.springframework.org/schema/beans" 
+   		xmlns:xsi 				= "http://www.w3.org/2001/XMLSchema-instance" 
+   		xsi:schemaLocation 		= "http://www.springframework.org/schema/beans 
+   								   http://www.springframework.org/schema/beans/spring-beans.xsd
+   								   http://www.springframework.org/schema/context 
+   								   http://www.springframework.org/schema/context/spring-context.xsd"
+   		xmlns:context			= "http://www.springframework.org/schema/context"
    		 
    		default-init-method		= "StudentInit" 
    		default-destroy-method	= "StudentDestroy">
@@ -147,7 +152,8 @@
    		
    		<property name="point_D" ref="lowerRight">
    			<!-- <idref bean="lowerRight" /> -->
-   			<!-- Instead of "ref", use "idref" to refer the bean with provided name (works in Spring 3.x) -->
+   			<!-- Instead of "ref", use "idref" to refer the bean with provided name (works in Spring 3.x) 
+   				 java.lang.IllegalStateException : Cannot convert value of type 'java.lang.String' to required type 'spring.beans.Coordinates' for property 'point_D': no matching editors or conversion strategy found -->
    		</property>
    	</bean>
 
