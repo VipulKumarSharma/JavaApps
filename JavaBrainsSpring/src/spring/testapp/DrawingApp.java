@@ -183,6 +183,7 @@ public class DrawingApp {
 		autowiredCircle.draw();
 		
 		
+		
 		/*  JSR 250 Annotations - Java Specification request is a standard which defines standard annotations, that we can apply across 
 		 *  different technologies & frameworks.
 		 *  Spring supports some of the JSR 250 annotations.  
@@ -210,12 +211,15 @@ public class DrawingApp {
 		componentRectangle.draw();
 		
 		
+		
 		/*	To pick messages from properties file Spring uses ResourceBundleMessageSource
 		 */
 		System.out.println("\nDrawingApp : "+annotationContext.getMessage("label.greeting", null, "Default Message - key not found", null));
 		
 		Shape autowiredRhombus					= (Shape) annotationContext.getBean("rhombus");
 		autowiredRhombus.draw();
+		
+		
 		
 		/*	ApplicationListener Interface has onApplicationEvent() which listens to framework related events.
 		 * 	We can create our custom class (i.e. CustomApplicationListener) which listens to framework related events & custom events.
