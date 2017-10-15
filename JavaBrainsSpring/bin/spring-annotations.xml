@@ -79,15 +79,59 @@
 	
 	<context:annotation-config/>
 	  	
+
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   		<property name="locations" value="Placeholder.values"></property>
+   	</bean>
+   	
+	<bean id="centerResource" class="spring.beans.Coordinates">
+   		<property name="x" value="${triangle_center.x}" />
+   		<property name="y" value="${triangle_center.y}" />
+   	</bean>
+	
+	<bean id="resourceTriangle" class="spring.beans.annotations.Triangle" />
+
+	<!-- @Resource (from javax.annotations) inject dependencies to member variables of the class. -->
+
+
+<!-- *********************************************************************************************************************************************************** -->
+	
+	<!-- To scan through all our classes & identify what annotations have marked certain classes as beans. 
+		 It's more efficient to restrict the search to a set of classes.
+		 It scans all the sub-packages also -->
+	
+	<context:component-scan base-package="spring.beans.annotations,spring.events" />
+
+	<bean id="center" class="spring.beans.Coordinates">
+   		<property name="x" value="22" />
+   		<property name="y" value="87" />
+   	</bean>
+
+
 <!-- *********************************************************************************************************************************************************** -->
 
+	<!-- To pick messages from properties file Spring uses ResourceBundleMessageSource 
+		 MessageSource Interface (available in "org.springframework.context") which has a method named getMessage()
+		 ApplicationContext also implements MessageSource Interface. 
+		 Therefore, we can call getMessage() either by ApplicationContext or by getting an instance of ResourceBundleMessageSource
+		 -->
+		 
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>Messages</value>
+				<!-- <value>Messages_ja</value> -->
+			</list>
+		</property>
+	</bean>
 
 
+<!-- *********************************************************************************************************************************************************** -->
+	<!-- <context:component-scan base-package="spring.events" /> -->
 
 
-
-
-
-
+<!-- *********************************************************************************************************************************************************** -->
 </beans>
 

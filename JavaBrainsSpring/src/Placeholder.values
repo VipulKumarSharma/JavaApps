@@ -11,3 +11,6 @@ point_C.y=-20
 
 point_D.x=0
 point_D.y=-20
+
+triangle_center.x=45
+triangle_center.y=67

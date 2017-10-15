@@ -1,8 +1,13 @@
 package spring.testapp;
 
+import java.util.Locale;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
@@ -176,6 +181,54 @@ public class DrawingApp {
 		 */
 		Shape autowiredCircle					= (Shape) annotationContext.getBean("autowiredCircle");
 		autowiredCircle.draw();
+		
+		
+		/*  JSR 250 Annotations - Java Specification request is a standard which defines standard annotations, that we can apply across 
+		 *  different technologies & frameworks.
+		 *  Spring supports some of the JSR 250 annotations.  
+		 * 	@Resource (from javax.annotations) inject dependencies to member variables of the class.
+		 *  @PostConstruct calls the defined method after initializing the bean.
+		 *  @PreConstruct calls the defined method before destroying the bean.
+		 */
+		AbstractApplicationContext annAbsCtxt   = new ClassPathXmlApplicationContext("spring-annotations.xml");
+		annAbsCtxt.registerShutdownHook();
+		
+		Shape resourceTriangle					= (Shape) annAbsCtxt.getBean("resourceTriangle");
+		resourceTriangle.draw();
+		
+		
+		/*	If we don't want to declare beans in XML, then we can use Stereotype Annotations.
+		 * 	But you cannot have different instances of the bean for the same class (i.e. it cannot have different behaviour). 
+		 * 	@Component  - declares a class as a bean. It takes the class name as bean name, but in lower case (acts as a Generic).
+		 *  @Service    - initially works like @ Component, but gives Spring additional information that this bean is service.
+		 *  @Repository - initially works like @ Component, but gives Spring additional information that this bean is a data object.
+		 *  @Controller - initially works like @ Component, but gives Spring additional information that this bean is a controller for the view in MVC.
+		 *  Adds a level of documentation to the bean, you look at the bean, you'll know what is or what it does.   
+		 */		
+		
+		Shape componentRectangle				= (Shape) annotationContext.getBean("rectangle");
+		componentRectangle.draw();
+		
+		
+		/*	To pick messages from properties file Spring uses ResourceBundleMessageSource
+		 */
+		System.out.println("\nDrawingApp : "+annotationContext.getMessage("label.greeting", null, "Default Message - key not found", null));
+		
+		Shape autowiredRhombus					= (Shape) annotationContext.getBean("rhombus");
+		autowiredRhombus.draw();
+		
+		/*	ApplicationListener Interface has onApplicationEvent() which listens to framework related events.
+		 * 	We can create our custom class (i.e. CustomApplicationListener) which listens to framework related events & custom events.
+		 * 	We can create our custom class (i.e. DrawEvent) which inherits ApplicationEvent, & override toString() for custom event message.
+		 * 	In order to publish our own event, we need an event publisher.
+		 * 	ApplicationEventPublisherAware Interface has setApplicationEventPublisher(ApplicationEventPublisher) which provides ApplicationEventPublisher to our class
+		 * 	By using ApplicationEventPublisher instance we can publish our custom events (i.e. DrawEvent).
+		 */
+		Shape eventPentagon						= (Shape) annotationContext.getBean("pentagon");
+		eventPentagon.draw();
+		
+		
+		
 		
 		
 		

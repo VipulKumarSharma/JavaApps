@@ -345,8 +345,7 @@
    		<property name="point_A" ref="point_A_placeholder" />
    		<property name="point_B" ref="point_B_placeholder" />
    		<property name="point_C" ref="point_C_placeholder" />
-   		<property name="point_D" ref="point_D_placeholder">
-   		</property>
+   		<property name="point_D" ref="point_D_placeholder" />
    	</bean>
    	
    	<!-- It executes before BeanFatory & substitutes the placeholder values from specified file.
