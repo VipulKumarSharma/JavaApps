@@ -16,7 +16,8 @@ public class AOPApp {
 		 * 	In OOP you would think of single individual entities as objects, & you would write objects that mirrors different entities in your problem space.
 		 * 	Each object contains member variables & methods.
 		 * 	You have encapsulated entities & you can design more complex code, because you have a cleaner design & separation of concerns.
-		 * 	But not all of the tasks you want to do, can be classified into objects.  
+		 * 	But not all of the tasks you want to do, can be classified into objects.
+		 * 	Shape.class automatically casts the returned bean to Shape Object.  
 		 */
 		ApplicationContext appContext 	= new ClassPathXmlApplicationContext("spring.xml");
 		Shape shapeService				= appContext.getBean("shapeService", Shape.class);
