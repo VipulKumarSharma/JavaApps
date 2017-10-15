@@ -1,4 +1,9 @@
-package spring.aop;
+package springaop;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import service.Shape;
 
 public class AOPApp {
 
@@ -13,8 +18,9 @@ public class AOPApp {
 		 * 	You have encapsulated entities & you can design more complex code, because you have a cleaner design & separation of concerns.
 		 * 	But not all of the tasks you want to do, can be classified into objects.  
 		 */
-		
-		
+		ApplicationContext appContext 	= new ClassPathXmlApplicationContext("spring.xml");
+		Shape shapeService				= appContext.getBean("shapeService", Shape.class);
+		System.out.println(shapeService.getCircle().getName());
 		
 	}
 
