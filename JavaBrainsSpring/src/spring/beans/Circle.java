@@ -1,6 +1,6 @@
 package spring.beans;
 
-import spring.testapp.Shape;
+import spring.interfaces.Shape;
 
 public class Circle implements Shape {
 

@@ -9,7 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 
 import spring.beans.Coordinates;
-import spring.testapp.Shape;
+import spring.interfaces.Shape;
 
 @Controller
 public class Rhombus implements Shape {

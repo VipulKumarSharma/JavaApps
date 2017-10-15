@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 
 import spring.beans.Coordinates;
-import spring.testapp.Shape;
+import spring.interfaces.Shape;
 
 public class Circle implements Shape {
 

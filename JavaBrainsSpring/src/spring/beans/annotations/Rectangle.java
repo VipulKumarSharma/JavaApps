@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import spring.beans.Coordinates;
-import spring.testapp.Shape;
+import spring.interfaces.Shape;
 
 @Component
 public class Rectangle implements Shape {

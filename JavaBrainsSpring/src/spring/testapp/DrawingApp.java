@@ -1,17 +1,13 @@
 package spring.testapp;
 
-import java.util.Locale;
-
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 
+import spring.interfaces.Shape;
 import spring.beans.Rectangle;
 import spring.beans.Rhombus;
 import spring.beans.Student;
@@ -230,26 +226,6 @@ public class DrawingApp {
 		 */
 		Shape eventPentagon						= (Shape) annotationContext.getBean("pentagon");
 		eventPentagon.draw();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 	}
 }

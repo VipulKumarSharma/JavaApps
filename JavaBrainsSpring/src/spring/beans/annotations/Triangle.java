@@ -5,7 +5,7 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
 import spring.beans.Coordinates;
-import spring.testapp.Shape;
+import spring.interfaces.Shape;
 
 public class Triangle implements Shape {
 

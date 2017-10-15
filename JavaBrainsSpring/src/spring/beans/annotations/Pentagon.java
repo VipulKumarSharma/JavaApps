@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
 import spring.events.DrawEvent;
-import spring.testapp.Shape;
+import spring.interfaces.Shape;
 
 @Component
 public class Pentagon implements Shape, ApplicationEventPublisherAware {
