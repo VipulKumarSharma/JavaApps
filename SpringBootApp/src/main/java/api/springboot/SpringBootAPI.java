@@ -8,6 +8,8 @@ public class SpringBootAPI {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootAPI.class, args);
+		
+		System.out.println("Spring Boot API started.");
 	}
 
 }
