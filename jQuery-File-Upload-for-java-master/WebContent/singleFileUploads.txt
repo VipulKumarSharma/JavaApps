@@ -1,0 +1,49 @@
+var fileList = [],
+    exists = false;
+
+$form.fileupload({
+    autoUpload: false,
+    singleFileUpload: false,
+    url: '/handler.php',
+    add: function(e, data) {
+        exists = false;
+        for(var i = 0, len = filesList.length; i < len; i++) {
+            if(filesList[i].paramName === data.paramName) {
+                // file already exists for this param, replace it
+                exists = true;
+                filesList[i] = data;
+                break;
+            }
+        }
+
+        // no file exists for this param, add it to array
+        if(!exists) {
+            filesList.push(data);
+        }
+
+        $form.off('submit').one('submit', function(e) {
+            $form.fileupload('send', {
+                files: filesList
+            });
+
+            return false;
+        });
+    }
+})
+
+antiquewhite	#faebd7
+cornsilk		#fff8dc
+floralwhite		#fffaf0
+
+ivory			#fffff0
+moccasin		#ffe4b5
+papayaWhip		#ffefd5
+peachPuff		#ffdab9
+thistle			#d8bfd8
+transparent		#ffffff
+
+salmon			#fa8072
+
+
+gainsboro		#dcdcdc	
+ghostwhite		#f8f8ff
