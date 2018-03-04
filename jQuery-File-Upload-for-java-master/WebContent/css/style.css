@@ -544,6 +544,7 @@ table thead tr th{
 	/* color : #666666; */
 	color : white;
 	vertical-align: middle;
+	text-align: center;
 }
 
 table tbody tr td {
@@ -557,4 +558,8 @@ table tbody tr td {
 tr.template-upload  td.error span, tr.template-download td.error span {
 	border : 1px solid #fa8072 !important;
 	background-color: #fa8072 !important;
+}
+
+tr.template-upload td.preview {
+	text-align: center;
 }

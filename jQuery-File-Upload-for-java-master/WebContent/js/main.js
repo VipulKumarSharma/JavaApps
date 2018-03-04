@@ -88,17 +88,22 @@ $(function () {
     
     $('#fileupload').fileupload({
         add: function (e, data) {
-        	if($("table#docsListTable tbody tr").length == 1 && $("table#docsListTable tbody tr").hasClass("noDataRow")) {
-        		$("div#uploadedFilesDiv").css("max-height","218px")
-        	} else {
-        		$("div#uploadedFilesDiv").css("max-height","110px")
-        	}
-        	$("div#fileupload-progressbar-row, div#uploadedFilesDiv").show();
-        	
-        	var jqXHR = data.submit()
-        	.success(function (result, textStatus, jqXHR) {})
-	        .error(function (jqXHR, textStatus, errorThrown) {})
-	        .complete(function (result, textStatus, jqXHR) {});
+        	try {
+        		$("table#filesListTable tbody").html('');
+            	
+            	if($("table#docsListTable tbody tr").length == 1 && $("table#docsListTable tbody tr").hasClass("noDataRow")) {
+            		$("div#uploadedFilesDiv").css("max-height","218px")
+            	} else {
+            		$("div#uploadedFilesDiv").css("max-height","110px")
+            	}
+            	$("div#fileupload-progressbar-row, div#uploadedFilesDiv").show();
+            	
+            	var jqXHR = data.submit()
+            	.success(function (result, textStatus, jqXHR) {})
+    	        .error(function (jqXHR, textStatus, errorThrown) {})
+    	        .complete(function (result, textStatus, jqXHR) {});
+            	
+        	} catch (e) {}
         }
     });
     
@@ -109,20 +114,24 @@ $(function () {
     	//console.log('fileuploadadd');		
     })
     .bind('fileuploadsubmit', function (e, data) 	{
-        data.formData = {
-        	reqSiteId		: $("#reqSiteId").val(),
-        	reqDocType		: $("#reqDocType").val(),
-        	reqMstDocId		: $("#reqMstDocId").val(),
-        	reqMstId		: $("#reqMstId").val(),
-        	docReference	: $("#docReference").val()
-       	};
-       	
-        if (!data.formData.docReference) {
-          data.context.find('button').prop('disabled', false);
-          alert('Please Enter document reference first.');
-          $('#docReference').focus();
-          return false;
-        }
+    	try {
+    		data.formData = {
+	        	reqSiteId		: $("#reqSiteId").val(),
+	        	reqDocType		: $("#reqDocType").val(),
+	        	reqMstDocId		: $("#reqMstDocId").val(),
+	        	reqMstId		: $("#reqMstId").val(),
+	        	docReference	: $("#docReference").val()
+	       	};
+	       	
+	        if (!data.formData.docReference) {
+	        	/*data.context.find('button').prop('disabled', false);*/
+	        	$("div#fileupload-progressbar-row, div#uploadedFilesDiv").hide();
+	        	alert('Please Enter document reference first.');
+	        	$('#docReference').focus();
+	        	return false;
+	        }
+    	
+    	} catch(e) {}
     })
     .bind('fileuploadstart', function (e) {				
     	//console.log('fileuploadstart');			
@@ -160,8 +169,6 @@ $(function () {
     	//console.log('fileuploaddragover');
     });
     
-    
-    
     /* $('#fileupload').fileupload('add', {
     	files	: $('input[type="file"]').prop('files'), 
     	url		: 'UploadServlet'
@@ -185,7 +192,8 @@ $(function () {
     	console.log('complete');
    	}); */
    	
-   	$("#triggerFile").bind("click", function (event) {
+   	
+    $("#triggerFile").bind("click", function (event) {
 		event.preventDefault();
 		$("input[type=file]").click();
 	});

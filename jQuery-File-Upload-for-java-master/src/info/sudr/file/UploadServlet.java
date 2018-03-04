@@ -197,7 +197,7 @@ public class UploadServlet extends HttpServlet {
                     BufferedImage im = ImageIO.read(file);
                     
                     if (im != null) {
-                        BufferedImage thumb 		= Scalr.resize(im, 75); 
+                        BufferedImage thumb 		= Scalr.resize(im, 25); 
                         ByteArrayOutputStream os 	= new ByteArrayOutputStream();
                         
                         if (mimetype.endsWith("png")) {
