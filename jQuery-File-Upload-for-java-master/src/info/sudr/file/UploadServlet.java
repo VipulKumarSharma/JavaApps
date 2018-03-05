@@ -16,7 +16,10 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
+<<<<<<< HEAD
 import org.apache.commons.io.FilenameUtils;
+=======
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 import org.imgscalr.Scalr;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -84,6 +87,7 @@ public class UploadServlet extends HttpServlet {
                     jsono.put("size", 	fileSizeInBytes);
                     jsono.put("url", 	"UploadServlet?getfile=" + item.getName());
                     
+<<<<<<< HEAD
                     String fileExtension = FilenameUtils.getExtension(fileName);
                     
                     if (fileExtension.endsWith("png") || fileExtension.endsWith("jpeg")|| fileExtension.endsWith("jpg") || fileExtension.endsWith("gif")) {
@@ -106,6 +110,13 @@ public class UploadServlet extends HttpServlet {
                     	
                     } else {
                     	jsono.put("thumbnail_url", "img/document-25.png");
+=======
+                    String mimetype = getMimeType(file);
+                    if (mimetype.endsWith("png") || mimetype.endsWith("jpeg")|| mimetype.endsWith("jpg") || mimetype.endsWith("gif")) {
+                    	jsono.put("thumbnail_url", "UploadServlet?getthumb=" + fileName);
+                    } else {
+                    	jsono.put("thumbnail_url", "img/document-30.png");
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
                     }
                     jsono.put("delete_url", "UploadServlet?delfile=" + fileName);
                     jsono.put("delete_type", "GET");
@@ -129,7 +140,10 @@ public class UploadServlet extends HttpServlet {
                 	}
                 }
             }
+<<<<<<< HEAD
             System.out.println("\n********************************************************************************************");
+=======
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
             System.out.println("reqMstId = "+reqMstId);
             System.out.println("docReference = "+docReference);
             System.out.println("reqMstDocId = "+reqMstDocId);
@@ -143,7 +157,11 @@ public class UploadServlet extends HttpServlet {
             	
             	System.out.println(fileName+"	("+fileSizeinKB+" KB) -- "+fileBytes);
             }
+<<<<<<< HEAD
             Thread.sleep(1000);
+=======
+            Thread.sleep(2000);
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
             
         } catch (FileUploadException e) {
                 throw new RuntimeException(e);
@@ -188,6 +206,7 @@ public class UploadServlet extends HttpServlet {
         
         } else if (request.getParameter("getthumb") != null && !request.getParameter("getthumb").isEmpty()) {
             File file = new File(request.getServletContext().getRealPath("/")+"imgs/"+request.getParameter("getthumb"));
+<<<<<<< HEAD
             
             if (file.exists()) {
                 //System.out.println(file.getAbsolutePath());
@@ -229,6 +248,72 @@ public class UploadServlet extends HttpServlet {
     		writer.write("call POST with multipart form data");
     	}
 	}
+=======
+                if (file.exists()) {
+                    //System.out.println(file.getAbsolutePath());
+                    String mimetype = getMimeType(file);
+                    if (mimetype.endsWith("png") || mimetype.endsWith("jpeg")|| mimetype.endsWith("jpg") || mimetype.endsWith("gif")) {
+                        BufferedImage im = ImageIO.read(file);
+                        if (im != null) {
+                            BufferedImage thumb = Scalr.resize(im, 75); 
+                            ByteArrayOutputStream os = new ByteArrayOutputStream();
+                            if (mimetype.endsWith("png")) {
+                                ImageIO.write(thumb, "PNG" , os);
+                                response.setContentType("image/png");
+                            } else if (mimetype.endsWith("jpeg")) {
+                                ImageIO.write(thumb, "jpg" , os);
+                                response.setContentType("image/jpeg");
+                            } else if (mimetype.endsWith("jpg")) {
+                                ImageIO.write(thumb, "jpg" , os);
+                                response.setContentType("image/jpeg");
+                            } else {
+                                ImageIO.write(thumb, "GIF" , os);
+                                response.setContentType("image/gif");
+                            }
+                            ServletOutputStream srvos = response.getOutputStream();
+                            response.setContentLength(os.size());
+                            response.setHeader( "Content-Disposition", "inline; filename=\"" + file.getName() + "\"" );
+                            os.writeTo(srvos);
+                            srvos.flush();
+                            srvos.close();
+                        }
+                    }
+            }
+        
+        } else {
+            PrintWriter writer = response.getWriter();
+            writer.write("call POST with multipart form data");
+        }
+    }
+    
+    private String getMimeType(File file) {
+        String mimetype = "";
+        if (file.exists()) {
+            if (getSuffix(file.getName()).equalsIgnoreCase("png")) {
+                mimetype = "image/png";
+            }else if(getSuffix(file.getName()).equalsIgnoreCase("jpg")){
+                mimetype = "image/jpg";
+            }else if(getSuffix(file.getName()).equalsIgnoreCase("jpeg")){
+                mimetype = "image/jpeg";
+            }else if(getSuffix(file.getName()).equalsIgnoreCase("gif")){
+                mimetype = "image/gif";
+            }else {
+                javax.activation.MimetypesFileTypeMap mtMap = new javax.activation.MimetypesFileTypeMap();
+                mimetype  = mtMap.getContentType(file);
+            }
+        }
+        return mimetype;
+    }
+
+    private String getSuffix(String filename) {
+        String suffix = "";
+        int pos = filename.lastIndexOf('.');
+        if (pos > 0 && pos < filename.length() - 1) {
+            suffix = filename.substring(pos + 1);
+        }
+        return suffix;
+    }
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
     
     public String getBrowserInfo(String browser) {
 		String browserType = "";
@@ -282,6 +367,7 @@ public class UploadServlet extends HttpServlet {
 		 }
 		 return browserType;
 	}
+<<<<<<< HEAD
     
     private String getMimeType(File file) {
         String mimetype = "";
@@ -310,4 +396,6 @@ public class UploadServlet extends HttpServlet {
         }
         return suffix;
     }
+=======
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 }

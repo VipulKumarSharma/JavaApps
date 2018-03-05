@@ -43,7 +43,11 @@ thistle			#d8bfd8
 transparent		#ffffff
 
 salmon			#fa8072
+<<<<<<< HEAD
 lightsalmon		#fe9f7a
+=======
+
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 
 gainsboro		#dcdcdc	
 ghostwhite		#f8f8ff

@@ -81,13 +81,18 @@ $(function () {
 	        autoUpload					: true,
 	        multipart					: true,
 	     	singleFileUploads			: false,
+<<<<<<< HEAD
 	     	acceptFileTypes				: /(\.|\/)(gif|jpg|jpeg|png|pdf|doc|docx|xls|xlsx|ppt|pptx|tif|txt)$/i,
+=======
+	     	acceptFileTypes				: /(\.|\/)(gif|jpg|jpeg|png|pdf|doc|docx|xls|xlsx|ppt|pptx|gif|tif|txt)$/i,
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 	     	maxFileSize					: 10000000,
 	     	maxNumberOfFiles			: 100
 	    });
     
     $('#fileupload').fileupload({
         add: function (e, data) {
+<<<<<<< HEAD
         	try {
         		$("table#filesListTable tbody").html('');
             	
@@ -104,6 +109,14 @@ $(function () {
     	        .complete(function (result, textStatus, jqXHR) {});
             	
         	} catch (e) {}
+=======
+        	$("div#fileupload-progressbar-row, div#uploadedFilesDiv").show();
+        	
+        	var jqXHR = data.submit()
+        	.success(function (result, textStatus, jqXHR) {})
+	        .error(function (jqXHR, textStatus, errorThrown) {})
+	        .complete(function (result, textStatus, jqXHR) {});
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
         }
     });
     
@@ -114,6 +127,7 @@ $(function () {
     	//console.log('fileuploadadd');		
     })
     .bind('fileuploadsubmit', function (e, data) 	{
+<<<<<<< HEAD
     	try {
     		data.formData = {
 	        	reqSiteId		: $("#reqSiteId").val(),
@@ -132,6 +146,22 @@ $(function () {
 	        }
     	
     	} catch(e) {}
+=======
+        data.formData = {
+        	reqSiteId		: $("#reqSiteId").val(),
+        	reqDocType		: $("#reqDocType").val(),
+        	reqMstDocId		: $("#reqMstDocId").val(),
+        	reqMstId		: $("#reqMstId").val(),
+        	docReference	: $("#docReference").val()
+       	};
+       	
+        if (!data.formData.docReference) {
+          data.context.find('button').prop('disabled', false);
+          alert('Please Enter document reference first.');
+          $('#docReference').focus();
+          return false;
+        }
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
     })
     .bind('fileuploadstart', function (e) {				
     	//console.log('fileuploadstart');			
@@ -169,6 +199,11 @@ $(function () {
     	//console.log('fileuploaddragover');
     });
     
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
     /* $('#fileupload').fileupload('add', {
     	files	: $('input[type="file"]').prop('files'), 
     	url		: 'UploadServlet'
@@ -192,8 +227,12 @@ $(function () {
     	console.log('complete');
    	}); */
    	
+<<<<<<< HEAD
    	
     $("#triggerFile").bind("click", function (event) {
+=======
+   	$("#triggerFile").bind("click", function (event) {
+>>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 		event.preventDefault();
 		$("input[type=file]").click();
 	});
