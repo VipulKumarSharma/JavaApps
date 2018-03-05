@@ -50,15 +50,9 @@
 					</div>
 				</div>
 				
-<<<<<<< HEAD
 				<footer class="footer" style="overflow: auto;">
 					<div class="table-responsive" style="padding-left:0px; padding-right:0px; margin-left:15px; margin-right:15px ;margin-bottom: 15px; max-height: 135px; overflow-y:auto; border :1px solid lightgray; border-radius:5px;">	 
 		          		<table id="docsListTable" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="table" style="border-collapse:collapse; margin-bottom: 0px;">
-=======
-				<footer class="footer">
-					<div class="table-responsive" style="padding-left:0px; padding-right:0px; margin-left:15px; margin-right:15px ;margin-bottom: 15px; max-height: 135px; overflow-y:auto; border :1px solid lightgray; border-radius:5px;">	 
-		          		<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="table" style="border-collapse:collapse; margin-bottom: 0px;">
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 		           		  <thead>
 			           		   <tr style="background-color: #4db6ac;">
 								  <th class="TabHd" width="14%">Doc. Reference</th>
@@ -69,7 +63,6 @@
 						       </tr>
 					       </thead>
 					       <tbody style="font-size: 12px;">
-<<<<<<< HEAD
 					       		<tr style="background-color: #f8f8ff; text-align: center;">	      					      
 							 		<td height="30">Primary Doc</td>
 							 		<td height="30">acjhfsd.jpg</td>
@@ -88,12 +81,6 @@
 							 		<td height="30" colspan="5" style="color:white !important; text-align: center !important; font-weight: bold !important;">
 							 			No Primary and Secondary documents attached.
 							 		</td> -->
-=======
-						  		<tr style="background-color: #f8f8ff;">	      					      
-							 		<td align="left" height="30" class="TabData" colspan="5" style="text-align: center;">
-							 			No Primary and Secondary documents attached.
-							 		</td>
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 							 	</tr>
 							</tbody>
 		          		</table>
@@ -112,11 +99,7 @@
                      	<table id="filesListTable" role="presentation" class="table table-striped" style="margin-bottom: 0px;">
                      		<thead>
                      			<tr style="background-color: #4db6ac;">
-<<<<<<< HEAD
                      				<th colspan="6" style="text-align: center;">Uploaded Documents List</th>
-=======
-                     				<th colspan="6" style="text-align: center;">Uploaded files</th>
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
                      			<tr>
                      		</thead>
                       		<tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
@@ -132,7 +115,6 @@
     <script id="template-upload" type="text/x-tmpl">
         {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-upload fade">
-<<<<<<< HEAD
             	<td class="preview" width="10%">
 				{% if (file.error) { %}
 					<img src="img/warning-25.png" width="20" height="20">
@@ -143,25 +125,15 @@
 				<td class="name"><span>{%=file.name%}</span></td>
             	
 				<td class="size"><span>{%=calculateFileSizeFromBytes(file.size, false)%}</span></td>
-=======
-            	<td class="preview"><span class="fade"></span></td>
-            	<td class="name"><span>{%=file.name%}</span></td>
-            	<td class="size"><span>{%=calculateFileSizeFromBytes(file.size, false)%}</span></td>
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
             	
 			{% if (file.error) { %}
             	<td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
             
 			{% } else if (o.files.valid && !i) { %}
             	<td>
-<<<<<<< HEAD
             		<div class="progress progress-bar-success progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
             	</td>
 
-=======
-            		<div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
-            	</td>
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
             	<td class="start">
 				{% if (!o.options.autoUpload) { %}
             		<button class="btn btn-primary btn-xs">
@@ -192,7 +164,6 @@
        {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-download fade">
         	{% if (file.error) { %}
-<<<<<<< HEAD
             	<td width="10%"></td>
             	
 				<td class="name"><span>{%=file.name%}</span></td>
@@ -205,20 +176,10 @@
 			
 			{% } else { %}
             	<td class="preview" align="center" width="10%">
-=======
-            	<td></td>
-            	<td class="name"><span>{%=file.name%}</span></td>
-            	<td class="size"><span>{%=calculateFileSizeFromBytes(file.size, false)%}</span></td>
-            	<td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
-			
-			{% } else { %}
-            	<td class="preview">
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 				{% if (file.thumbnail_url) { %}
             		<a target="_blank" href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}" width="25" height="25"></a>
             	{% } %}
 				</td>
-<<<<<<< HEAD
 				
 				<td class="name">
             		<a target="_blank" href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
@@ -230,15 +191,6 @@
 
 				<td class="status"><img src="img/done-25.png" width="18" height="18"></td>
             {% } %}
-=======
-				<td class="name">
-            		<a target="_blank" href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
-            	</td>
-				<td class="size" colspan="3"><span>Size : {%=calculateFileSizeFromBytes(file.size, false)%}</span></td>
-            {% } %}
-            	
-				<td class="delete"></td>
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 			</tr>
        	{% } %}
     </script>	
@@ -265,13 +217,8 @@
 		        return bytes + ' B';
 		    }
 		    var units = si
-<<<<<<< HEAD
 		        ? ['KB','MB','GB','TB','PB','EB','ZB','YB']
 		        : ['KB','MB','GB','TB','PB','EB','ZB','YB'];
-=======
-		        ? ['kB','MB','GB','TB','PB','EB','ZB','YB']
-		        : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 		    var u = -1;
 		    do {
 		        bytes /= thresh;

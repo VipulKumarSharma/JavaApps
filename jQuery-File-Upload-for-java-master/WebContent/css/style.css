@@ -479,11 +479,7 @@ p:nth-child(1) {
 }
 
 .footer {
-<<<<<<< HEAD
 	min-height: 307px;
-=======
-	min-height:180px;
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 	max-height: 307px;
 }
 #loadingpage {
@@ -548,10 +544,7 @@ table thead tr th{
 	/* color : #666666; */
 	color : white;
 	vertical-align: middle;
-<<<<<<< HEAD
 	text-align: center;
-=======
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 }
 
 table tbody tr td {
@@ -565,11 +558,8 @@ table tbody tr td {
 tr.template-upload  td.error span, tr.template-download td.error span {
 	border : 1px solid #fa8072 !important;
 	background-color: #fa8072 !important;
-<<<<<<< HEAD
 }
 
 tr.template-upload td.preview {
 	text-align: center;
-=======
->>>>>>> e91dd32ae3e8ce942577766fd44249be769f55ef
 }
