@@ -22,6 +22,7 @@ public class AOPApp {
 		ApplicationContext appContext 	= new ClassPathXmlApplicationContext("spring.xml");
 		Shape shapeService				= appContext.getBean("shapeService", Shape.class);
 		System.out.println(shapeService.getCircle().getName());
+		System.out.println(shapeService.getTriangle().getName());
 		
 	}
 
