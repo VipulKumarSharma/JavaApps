@@ -1,12 +1,21 @@
 package aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
 public class LoggingAspect {
+	
+	
+	/*	These advices will only be executed for the call we make (not by the Spring container)   
+	 * 
+	 */
+	
 	
 	/*  POINTCUT EXPRESSIONS - takes parameter as Method(s)
 	 *
@@ -66,6 +75,43 @@ public class LoggingAspect {
 	
 	@Before("args(name)")
 	public void LoggingAdvice_ArgumentMethods(String name) {
-		System.err.println("\nA method which takes String argument with value='"+name+"' has been called");
+		System.err.println("\n[@Before] A method which takes String argument with value='"+name+"' has been called");
 	}
+	
+	
+	/* @After runs after our target method runs (no matter whether it completes or NOT) 
+	 * 
+	 * @AfterReturning("args(name)")
+	 * To access returning value from the target() :: 
+	 * 
+	 * @AfterReturning(pointcut="args(name)", returning="returnString")
+	 * public void <funcName>(String name, String returnString) {...}
+	 * 
+	 * 
+	 * @AfterThrowing("args(name)")
+	 * similarly for @AfterThrowing ::
+	 * 
+	 * @AfterReturning(pointcut="args(name)", throwing="ex")
+	 * public void <funcName>(String name, Exception ex) {...}
+	 */
+	
+	@After("args(name)")
+	public void LoogingAdvice_After(String name) {
+		System.err.println("\n[@After] A method which takes String argument with value='"+name+"' has been called");
+	}
+	
+	@AfterReturning(pointcut="args(name)", returning="returnString")
+	public void LoogingAdvice_AfterReturning(String name, String returnString) {
+		System.err.println("\n[@AfterReturning] A method which takes String argument has been returned, "
+				+ "\nhaving argument='"+name+"' and returned value='"+returnString+"'");
+	}
+	
+	@AfterThrowing(pointcut="args(name)", throwing="ex")
+	public void LoogingAdvice_AfterThrowing(String name, Exception ex) {
+		System.out.println("\n[@AfterThrowing] An eception has been thrown from a method, "
+				+ "\nwhich is : "+ex);
+	}
+	
+	
+	
 }

@@ -18,7 +18,7 @@
 	<aop:aspectj-autoproxy/>
 	
 	<bean id="circle" class="model.Circle">
-		<property name="name" value="Perfect Circle"></property>
+		<!-- <property name="name" value="Perfect Circle"></property> -->
 	</bean>
 	
 	<bean id="triangle" class="model.Triangle">
