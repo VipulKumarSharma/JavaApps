@@ -12,9 +12,7 @@ import org.aspectj.lang.annotation.Pointcut;
 public class LoggingAspect {
 	
 	
-	/*	These advices will only be executed for the call we make (not by the Spring container)   
-	 * 
-	 */
+	/*	These advices will only be executed for the call we make (not by the Spring container) */
 	
 	
 	/*  POINTCUT EXPRESSIONS - takes parameter as Method(s)
@@ -111,7 +109,5 @@ public class LoggingAspect {
 		System.out.println("\n[@AfterThrowing] An eception has been thrown from a method, "
 				+ "\nwhich is : "+ex);
 	}
-	
-	
 	
 }
