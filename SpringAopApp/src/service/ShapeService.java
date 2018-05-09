@@ -4,13 +4,14 @@ import aspect.Loggable;
 import model.Circle;
 import model.Triangle;
 
-public class Shape {
+public class ShapeService {
 
 	private Circle circle;
 	private Triangle triangle;
 	
 	@Loggable
 	public Circle getCircle() {
+		System.out.println("Circle's getName() called");
 		return circle;
 	}
 	public void setCircle(Circle circle) {

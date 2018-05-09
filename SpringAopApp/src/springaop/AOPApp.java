@@ -1,9 +1,7 @@
 package springaop;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import service.Shape;
+import service.FactoryService;
+import service.ShapeService;
 
 public class AOPApp {
 
@@ -19,15 +17,28 @@ public class AOPApp {
 		 * 	But not all of the tasks you want to do, can be classified into objects.
 		 * 	Shape.class automatically casts the returned bean to Shape Object.  
 		 */
+		
+		/*
 		ApplicationContext appContext 	= new ClassPathXmlApplicationContext("spring.xml");
 		Shape shapeService				= appContext.getBean("shapeService", Shape.class);
+		
 		//System.out.println(shapeService.getCircle().getName());
 		//System.out.println(shapeService.getTriangle().getName());
 		
 		//shapeService.getCircle().setName("Dummy Circle");
 		
-		shapeService.getCircle().setNameAndReturn("Perfect Circle");
+		//shapeService.getCircle().setNameAndReturn("Perfect Circle");
 		
+		shapeService.getCircle();
+		*/		
+		
+		
+		/* You can call custom Advice methods using proxy class */
+		
+		FactoryService factoryService = new FactoryService();
+		ShapeService shape = (ShapeService) factoryService.getBean("shapeService"); 	// returns ShapeServiceProxy object
+		
+		shape.getCircle();
 	}
 
 }

@@ -29,4 +29,19 @@
 	
 	<bean name="loggingAspect" class="aspect.LoggingAspect"></bean>
 	
+	<bean name="aspectClass" class="aspect.AspectClass"></bean>
+	
+	<!-- It contains all AOP & method related configurations -->
+	<aop:config>
+		<aop:aspect id="aspectClass" ref="aspectClass">
+			<aop:pointcut id="allGetters" expression="execution(* get*())"/>
+			<aop:around pointcut-ref="allGetters" method="AroundAdvice"/>
+			
+			<!-- 
+			You can also mention pointcut expression in <aop:around>
+			<aop:around pointcut="execution(* get*())" method="AroundAdvice"/> 
+			-->
+		</aop:aspect>
+	</aop:config>
+	
 </beans>

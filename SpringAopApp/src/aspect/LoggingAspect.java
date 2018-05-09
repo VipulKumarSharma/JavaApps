@@ -1,9 +1,11 @@
 package aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -37,7 +39,7 @@ public class LoggingAspect {
 	 * 	within(model.*)
 	 */
 	
-	@Pointcut("execution(public * getN*())")
+	@Pointcut("execution(public * get*())")
 	public void allGetters() {}					// Dummy Method that holds pointcut expression
 	
 	@Pointcut("within(model.Circle)")
@@ -108,6 +110,41 @@ public class LoggingAspect {
 	public void LoogingAdvice_AfterThrowing(String name, Exception ex) {
 		System.out.println("\n[@AfterThrowing] An eception has been thrown from a method, "
 				+ "\nwhich is : "+ex);
+	}
+	
+	
+	/* @Around("allGetters()")
+	 * @Around("@annotation(aspect.Loggable)") - allows us to apply the corresponding advice 
+	 * & @Loggable to any method just by annotating the target method. 
+	 * By this approach you don't have to worry about name & naming conventions.
+	 * You can apply @Loggable to any method, without changing pointcut expressions.
+	 * 
+	 * Note :- "proceedingJoinPoint.proceed()" proceed the target() execution
+	 * 
+	 * Advantages of @Around advice :
+	 * 1. 	More control of the code.
+	 * 2. 	You can have shared variables inside @Around advice, 
+	 * 	  	before & after target() execution, in a thread safe method.
+	 * 3. 	You can get hold of returned value.
+	 * 
+	 * Note :- If target() returns some value then Around advice also have to do the same
+	 */
+	
+	@Around("@annotation(aspect.Loggable)")
+	public Object LoggingAdvice_Around(ProceedingJoinPoint proceedingJoinPoint) {
+		Object returnedValue = null;
+		try {
+			System.err.println("\n[@Around] Before advice");
+			returnedValue = proceedingJoinPoint.proceed();
+			System.err.println("[@Around] After advice");
+			
+		} catch (Throwable e) {
+			System.err.println("[@Around] After Throwing");
+		}
+		
+		System.err.println("[@Around] After finally\n");
+		
+		return returnedValue;
 	}
 	
 }
