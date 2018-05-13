@@ -11,16 +11,32 @@
 	
 	<!-- It is a SampleDataSource implementation, provided out of the box by Spring. 
 		 It's not very efficient.
-		 Creates a new connetion every time we call dataSource.getConnection() -->
+		 Creates a new connection every time we call dataSource.getConnection() -->
 		 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
 		<property name="url" value="jdbc:derby://localhost:1527/db"/>
 	</bean>
 	
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
 		<property name="url" value="jdbc:derby://localhost:1527/db"/>
-	</bean> -->
+		<property name="initialSize" value="2"/>
+		<property name="maxTotal" value="5"/>
+	</bean>
 	
+	<bean id="dbcpNewDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+		<property name="url" value="jdbc:derby://localhost:1527/db"/>
+		<property name="initialSize" value="2"/>
+		<property name="maxTotal" value="5"/>
+	</bean>
+	
+	<bean id="simpleJdbcDAOImpl" class="jdbcapp.dao.SimpleJdbcDAOImpl">
+		<property name="dataSource" ref="dbcpNewDataSource"/>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dbcpNewDataSource"/>
+	</bean>
 </beans>

@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Derby"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SpringJDBC"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Dbcp&amp;Pool"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
