@@ -221,15 +221,7 @@ public class JdbcAppDAOImpl {
 		System.err.println("[insertTriangleRecord_usingNamedParameterJdbcTemplate] "+count+" row inserted");
 	}
 	
-	
-	/* 	It doesn't contains all methods we use previously, 
+	/* 	SimpleJdbcCall doesn't contains all methods we use previously, 
 	 *	rather it contains more commonly used features of JdbcTemplate & NamedParameterJdbcTemplate
 	 */
-	
-	private SimpleJdbcCall simpleJdbcCall; 
-	
-	/* DAO Support Classes have simply datasource, templates, etc variables 
-	 * and their getters & setters
-	 */
-	
 }

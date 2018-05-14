@@ -36,7 +36,13 @@
 		<property name="dataSource" ref="dbcpNewDataSource"/>
 	</bean>
 	
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dbcpNewDataSource"/>
-	</bean>
+	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dbcpDataSource"/>
+		<property name="packagesToScan" value="jdbcapp.model"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.DerbyDialect</prop>
+			</props>
+		</property>
+	</bean> -->
 </beans>

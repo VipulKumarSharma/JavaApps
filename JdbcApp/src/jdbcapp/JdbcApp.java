@@ -6,7 +6,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import jdbcapp.dao.JdbcAppDAOImpl;
 import jdbcapp.dao.SimpleJdbcDAOImpl;
 import jdbcapp.model.Circle;
-import jdbcapp.model.Triangle;
 
 public class JdbcApp {
 
@@ -41,6 +40,9 @@ public class JdbcApp {
 		
 		SimpleJdbcDAOImpl daoImpl = ctxt.getBean("simpleJdbcDAOImpl", SimpleJdbcDAOImpl.class);
 		System.out.println("[getTriangleCount_usingJdbcTemplateSupportClass] "+daoImpl.getTriangleCount_usingJdbcTemplateSupportClass());
+		
+		/*HibernateDAOImpl hibernateDAOImpl = ctxt.getBean("hibernateDAOImpl", HibernateDAOImpl.class);
+		System.out.println("[getSquareCount_usingHibernate] "+hibernateDAOImpl.getSquareCount_usingHibernate());*/
 	}
 
 }
