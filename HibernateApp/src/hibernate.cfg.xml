@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/hibernateDB</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">root</property>
+
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">1</property>
+
+        <!-- SQL dialect defines which type of language is used to talk to DB -->
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <!-- Prints all executed SQL to stdout/console -->
+        <property name="show_sql">true</property>
+
+        <!-- On startup Hibernate drop and re-creates DB schema for Model Objects -->
+        <!-- <property name="hbm2ddl.auto">create</property> -->
+        
+        <!-- On startup Hibernate updates DB schema for Model Objects -->
+        <property name="hbm2ddl.auto">create</property>
+
+        <!-- Names the annotated entity class -->
+        <mapping class="io.home.hibernateapp.dto.UserDetails"/>
+
+    </session-factory>
+
+</hibernate-configuration>
