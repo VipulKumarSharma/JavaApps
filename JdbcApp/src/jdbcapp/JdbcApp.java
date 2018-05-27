@@ -3,6 +3,7 @@ package jdbcapp;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import jdbcapp.dao.HibernateDAOImpl;
 import jdbcapp.dao.JdbcAppDAOImpl;
 import jdbcapp.dao.SimpleJdbcDAOImpl;
 import jdbcapp.model.Circle;
