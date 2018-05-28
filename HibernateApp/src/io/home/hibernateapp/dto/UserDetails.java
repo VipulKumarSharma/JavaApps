@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -31,8 +33,9 @@ public class UserDetails {
 	 * BLOB - Byte Stream 
 	 */
 
-	@Id
-	@Column(name="USER_ID")
+	@Id 
+	@GeneratedValue (strategy=GenerationType.AUTO)
+	@Column (name="USER_ID")
 	private int userId;
 	
 	@Column(name="USER_NAME")
@@ -48,12 +51,13 @@ public class UserDetails {
 	@Lob
 	private String description;
 	
+	public UserDetails() {}
 	
 	public UserDetails(int userId, String userName, 
 			Date joiningDate, String address, String description) {
 		super();
 		
-		setUserId(userId);
+		//setUserId(userId);
 		setUserName(userName);
 		
 		setJoiningDate(joiningDate);
