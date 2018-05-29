@@ -1,9 +1,15 @@
 package io.home.hibernateapp.dto;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,11 +37,27 @@ public class UserDetails {
 	 * @Lob means large object
 	 * CLOB - Character type 
 	 * BLOB - Byte Stream 
+	 * 
+	 * @Embedded field is used with @Embeddable Object,
+	 * which is inserted into DB with container Entity Object.
+	 * Even Primary key can be an Embedded Object, by using @EmbeddedId
+	 * @EmbeddedId does not work with @Id and @GeneratedValue.
+	 * 
+	 * @AttributeOverrides overrides @Embeddable Object's fields
+	 * @AttributeOverride overrides @Embeddable Object's field properties 
+	 * (i.e. DB column name)
+	 * 
+	 * @ElementCollection is used to embed Collection Object inside @Embeddable Object
+	 * Separate table is created to store collection objects,
+	 * First n(i.e. size of collection) no. of rows will be created with collection data,
+	 * then table's records will be updated with Main table's primary key value.
 	 */
 
+	
 	@Id 
 	@GeneratedValue (strategy=GenerationType.AUTO)
 	@Column (name="USER_ID")
+	//@EmbeddedId
 	private int userId;
 	
 	@Column(name="USER_NAME")
@@ -46,26 +68,48 @@ public class UserDetails {
 	
 	@Basic
 	@Transient
-	private String address;
+	private String nickname;
 	
 	@Lob
 	private String description;
 	
+	@Embedded
+	private Address homeAddress;
+	
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="street", 	column=@Column(name="OFFICE_STREET_NAME")),
+		@AttributeOverride(name="city", 	column=@Column(name="OFFICE_CITY_NAME")),
+		@AttributeOverride(name="state", 	column=@Column(name="OFFICE_STATE")),
+		@AttributeOverride(name="pincode", 	column=@Column(name="OFFICE_PINCODE")),
+	})
+	private Address officeAddress;
+	
+	@ElementCollection
+	private Set<Address> addressesOverTheYears = new HashSet<Address>();
+	
+	
+	
+	
+	/****************************************************************************/
 	public UserDetails() {}
 	
 	public UserDetails(int userId, String userName, 
-			Date joiningDate, String address, String description) {
+			Date joiningDate, String nickname, String description) {
 		super();
 		
 		//setUserId(userId);
 		setUserName(userName);
 		
 		setJoiningDate(joiningDate);
-		setAddress(address);
+		setNickname(nickname);
 		setDescription(description);
 	}
 	
 	
+	
+	
+	/****************************************************************************/
 	public int getUserId() {
 		return userId;
 	}
@@ -84,16 +128,34 @@ public class UserDetails {
 	public void setJoiningDate(Date joiningDate) {
 		this.joiningDate = joiningDate;
 	}
-	public String getAddress() {
-		return address;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Address getHomeAddress() {
+		return homeAddress;
+	}
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
+	}
+	public Address getOfficeAddress() {
+		return officeAddress;
+	}
+	public void setOfficeAddress(Address officeAddress) {
+		this.officeAddress = officeAddress;
+	}
+	public Set<Address> getAddressesOverTheYears() {
+		return addressesOverTheYears;
+	}
+	public void setAddressesOverTheYears(Set<Address> addressesOverTheYears) {
+		this.addressesOverTheYears = addressesOverTheYears;
 	}
 }
