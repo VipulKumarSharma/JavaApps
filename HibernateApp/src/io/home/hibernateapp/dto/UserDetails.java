@@ -1,8 +1,8 @@
 package io.home.hibernateapp.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -11,14 +11,21 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 /*	@Entity (name="USER_DETAILS") changes the entity name as well as Table name, 
  *	whereas, @Table (name="USER_DETAILS") changes only the Table name.
@@ -51,6 +58,24 @@ public class UserDetails {
 	 * Separate table is created to store collection objects,
 	 * First n(i.e. size of collection) no. of rows will be created with collection data,
 	 * then table's records will be updated with Main table's primary key value.
+	 * 
+	 * @JoinTable used to alter name of Auto generated Join table and It's FOREIGN_KEY column name
+	 * name="USER_ADDRESS" - alters table name	
+	 * joinColumns=@JoinColumn(name="User_ID")) - alters FOREIGN_KEY column name
+	 * 
+	 * To create PK in join table use collection that supports index (i.e. ArrayList [0],[1],[2])
+	 * Set does not support indexes.
+	 * @CollectionId(columns = { @Column }, generator = "", type = @Type)
+	 * It is used to generate PK in join tables.
+	 * It is NOT a JPA annotation, it's a hibernate feature/annotation
+	 * @Column 		- defined which column you want to define as PK 
+	 * generator 	- How is the PK to be generated
+	 * @Type		- Type of the PK
+	 * 
+	 * @GenericGenerator is hibernate generator
+	 * hilo is common generator used by hibernate
+	 * 
+	 * @ElementCollection(fetch=FetchType.EAGER) - for Eager fetching of collection object's data from DB 
 	 */
 
 	
@@ -85,9 +110,21 @@ public class UserDetails {
 	})
 	private Address officeAddress;
 	
-	@ElementCollection
-	private Set<Address> addressesOverTheYears = new HashSet<Address>();
-	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@JoinTable(
+		name="USER_ADDRESS",
+		joinColumns=@JoinColumn(name="USER_ID")
+	)
+	@GenericGenerator(
+		name = "hilo-gen", 
+		strategy = "hilo"
+	)
+	@CollectionId(
+		columns = { @Column(name="ADDRESS_ID") }, 
+		generator = "hilo-gen", 
+		type = @Type(type = "long")
+	)
+	private Collection<Address> addressesOverTheYears = new ArrayList<Address>();
 	
 	
 	
@@ -117,7 +154,7 @@ public class UserDetails {
 		this.userId = userId;
 	}
 	public String getUserName() {
-		return userName + " from getter";
+		return userName + " using getter";
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -152,10 +189,10 @@ public class UserDetails {
 	public void setOfficeAddress(Address officeAddress) {
 		this.officeAddress = officeAddress;
 	}
-	public Set<Address> getAddressesOverTheYears() {
+	public Collection<Address> getAddressesOverTheYears() {
 		return addressesOverTheYears;
 	}
-	public void setAddressesOverTheYears(Set<Address> addressesOverTheYears) {
+	public void setAddressesOverTheYears(Collection<Address> addressesOverTheYears) {
 		this.addressesOverTheYears = addressesOverTheYears;
 	}
 }
