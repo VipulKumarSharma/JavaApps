@@ -2,9 +2,6 @@ package io.home.hibernateapp;
 
 import java.util.Date;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
