@@ -25,7 +25,7 @@ public class HibernateMappings {
 		employee.getAccounts().add(account2);
 
 		/* For Many to One relationship */
-		account1.setEmployee(employee);
+		//account1.setEmployee(employee); 	// if not set then inserts NULL in EMPLOYEE_ID column
 		account2.setEmployee(employee);
 		
 		/****************************************************************************/

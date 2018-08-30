@@ -8,23 +8,23 @@
     <session-factory>
 
         <!-- PostgreSQL Database connection settings -->
-        <!-- <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
         <property name="connection.url">jdbc:postgresql://localhost:5432/hibernateDB</property>
         <property name="connection.username">postgres</property>
-        <property name="connection.password">password</property> -->
+        <property name="connection.password">password</property>
         
         <!-- MYSQL Database connection settings -->
-        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <!-- <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/HibernateDB?useSSL=false</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">password</property>
+        <property name="connection.username">vipul</property>
+        <property name="connection.password">password</property> -->
 
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
 
         <!-- SQL dialect defines which type of language is used to talk to DB -->
-        <!-- <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property> -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <!-- <property name="dialect">org.hibernate.dialect.MySQLDialect</property> -->
 
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
